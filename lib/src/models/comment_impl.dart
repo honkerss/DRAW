@@ -215,12 +215,13 @@ class MoreComments extends RedditBase with RedditBaseInitializedMixin {
         if (currentComment.data['depth'] == currentDepth) {
           commentsAtCurrentLevel.add(currentComment);
           currentIndex++;
-          break;
         } else if (currentComment.data['depth'] < currentDepth) {
           break;
         } else {
           final parent = commentsAtCurrentLevel.last;
-          parent._replies = CommentForest(submission, [currentComment]);
+          final replies =
+              _fillCommentsForestsRecursively(fullList, currentDepth + 1);
+          parent._replies = CommentForest(submission, replies);
         }
       }
     }
