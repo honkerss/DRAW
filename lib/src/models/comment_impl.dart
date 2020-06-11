@@ -143,6 +143,27 @@ class MoreComments extends RedditBase with RedditBaseInitializedMixin {
     assert(comments.length == 1);
     return comments[0];
   }
+  
+  
+  /// Honkers' version of comments()
+  /// Expand [MoreComments] into the list of actual [Comments] it represents.
+  /// Can contain additional [MoreComments] objects.
+  Future<List<dynamic>> fetchComments({String linkID, String sort}) async {
+    if (_comments == null) {
+      if (_count == 0) {
+        return await _continueComments(false);
+      }
+      assert(_children != null);
+      final data = {
+        'children': _children.join(','),
+        'link_id': linkID,
+        'sort': sort ?? 'confidence',
+        'api_type': 'json',
+      };
+      _comments = await reddit.post(apiPath['morechildren'], data);
+    }
+    return _fillCommentsForests(_comments);
+  }
 
   /// Expand [MoreComments] into the list of actual [Comments] it represents.
   ///
