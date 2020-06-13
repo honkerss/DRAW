@@ -54,7 +54,7 @@ class Objector extends RedditBase {
         //logger.log(Level.FINE, 'and parsing CommentForest for ${comment.id}');
         final replies =
             _objectifyList(commentData['replies']['data']['children']);
-        commentData['replies'] = replies;
+        commentData['replies'] = replies.toList();
         //logger.log(Level.INFO, 'Done objectifying list of comments for CommentForest for ${comment.id}');
 //        final submission = SubmissionRef.withID(
 //            reddit, _removeIDPrefix(commentData['link_id']));
