@@ -54,12 +54,13 @@ class Objector extends RedditBase {
         //logger.log(Level.FINE, 'and parsing CommentForest for ${comment.id}');
         final replies =
             _objectifyList(commentData['replies']['data']['children']);
+        commentData['replies'] = replies;
         //logger.log(Level.INFO, 'Done objectifying list of comments for CommentForest for ${comment.id}');
-        final submission = SubmissionRef.withID(
-            reddit, _removeIDPrefix(commentData['link_id']));
+//        final submission = SubmissionRef.withID(
+//            reddit, _removeIDPrefix(commentData['link_id']));
         //logger.log(Level.INFO, 'Parent submission for Comment(id: ${comment.id}): ${_removeIDPrefix(commentData["link_id"])}');
-        final commentForest = CommentForest(submission, replies);
-        setRepliesInternal(comment, commentForest);
+//        final commentForest = CommentForest(submission, replies);
+//        setRepliesInternal(comment, commentForest);
       }
       return comment;
     } else if (data.containsKey('kind') &&
