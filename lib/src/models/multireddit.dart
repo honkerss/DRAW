@@ -181,7 +181,15 @@ class Multireddit extends RedditBase with RedditBaseInitializedMixin {
           e.toString() ==
           ('IconName.' + _convertToCamelCase(data['icon_name'])),
       orElse: () => null);
-
+  
+  /// Batur: Returns a list of Subreddits (Use only if 'expand_srs' is true)
+  List<Subreddit> get subs {
+    final subredditList = <Subreddit>[];
+    subredditList.addAll(data['subreddits'].map<Subreddit>(
+        (subreddit) => Subreddit.parse(reddit, subreddit['data'])));
+    return subredditList;
+  }
+  
   List<SubredditRef> get subreddits {
     final subredditList = <SubredditRef>[];
     subredditList.addAll(data['subreddits'].map<SubredditRef>(
